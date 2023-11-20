@@ -131,6 +131,23 @@ CREATE TABLE `ssb`.`Meetups`.`aircraftweather` (
 )
 
 
+
+select COALESCE(location,aircraftweather.station_id,'?') || ' ' || cast(adsb.lat as string) || ',' || cast(adsb.lon as string) as Location, 
+       COALESCE(adsb.flight,'-','-') || ' ' || COALESCE(adsb.hex, '-','-') as FlightNum, 
+       cast(adsb.alt_baro  as string) || '|' ||  cast(adsb.alt_geom as string) as Altitude, 
+       adsb.gs as Speed,
+       aircraftweather.temperature_string || aircraftweather.weather as Weather, 
+       adsb.mach,  adsb.baro_rate, adsb.nav_heading,
+       adsb.squawk, adsb.category,  aircraftweather.observation_time, 
+  aircraftweather.temperature_string, aircraftweather.wind_string, aircraftweather.dewpoint_string
+FROM `schemareg1`.`default_database`.`adsb` ,  aircraftweather 
+WHERE adsb.flight is not null
+AND (adsb.lat > aircraftweather.latitude - 0.3) 
+and (adsb.lat < aircraftweather.latitude + 0.3)
+and (adsb.lon < aircraftweather.longitude + 0.3) 
+and (adsb.lon > aircraftweather.longitude - 0.3)
+
+
 ````
 
 
