@@ -1,5 +1,8 @@
 # FLaNK-ContinuousSQL
 
+#### Conference Talk
+
+https://www.slideshare.net/bunkertor/jconworld-continuous-sql-with-kafka-and-flink
 
 
 #### SQL
